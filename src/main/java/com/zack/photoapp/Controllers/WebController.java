@@ -15,14 +15,12 @@ public class WebController {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
-    @Autowired
-    private AmazonS3Service amazonS3Service;
+
 
 
     @GetMapping("/")
     public String addUser(Model model){
         LOG.info("Get request for index");
-        amazonS3Service.getPictures();
         return "index";
     }
 

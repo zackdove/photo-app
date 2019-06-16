@@ -27,7 +27,7 @@ public class AmazonS3Service {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
-    private void objectToFile(S3Object s3object) {
+    private void saveObjectToFile(S3Object s3object) {
         try {
             S3ObjectInputStream inputStream = s3object.getObjectContent();
             String filename = "src/main/resources/static/images/" + s3object.getKey();
@@ -37,19 +37,22 @@ public class AmazonS3Service {
         }
     }
 
-    public void getPictures(){
+    public void syncPictures(){
         //Looks in ~/.aws/credentials for credentials
         AmazonS3 s3client = AmazonS3ClientBuilder
                 .standard()
                 .withRegion(Regions.US_EAST_1)
                 .build();
-//        ObjectListing objectListing = s3client.listObjects("zack-photo-app-bucket");
-//        for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
-//            LOG.info(os.getKey());
-//
-//        }
+        ObjectListing objectListing = s3client.listObjects("zack-photo-app-bucket");
+        for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
+            LOG.info(os.getKey());
+
+        }
+        
+
         S3Object img1 = s3client.getObject("zack-photo-app-bucket","000001bw.jpg");
-        objectToFile(img1);
+
+        saveObjectToFile(img1);
 
 
     }
