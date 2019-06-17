@@ -9,9 +9,10 @@
     <div th:replace="fragments/header :: header">&nbsp;</div>
 
 
-    <div class="container horizontal-group">
-        <div class="row text-center flex-nowrap">
-            <div class="col-8" th:each="photo : ${photos}">
+
+    <div class="container horizontal-group pt-5">
+        <div class="row flex-nowrap">
+            <div class="col-10" th:each="photo : ${photos}">
                 <img class="img-fluid" th:src="@{${photo}}"/>
             </div>
         </div>
