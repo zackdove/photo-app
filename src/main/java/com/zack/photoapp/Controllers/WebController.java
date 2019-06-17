@@ -1,6 +1,7 @@
 package com.zack.photoapp.Controllers;
 
 import com.zack.photoapp.Services.AmazonS3Service;
+import com.zack.photoapp.Services.PhotoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,14 @@ public class WebController {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
-
+    @Autowired
+    private PhotoService photoService;
 
 
     @GetMapping("/")
     public String addUser(Model model){
         LOG.info("Get request for index");
+        model.addAttribute("photos", photoService.getFirst10());
         return "index";
     }
 

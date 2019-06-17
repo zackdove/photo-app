@@ -54,7 +54,7 @@ public class AmazonS3Service {
         ObjectListing objectListing = s3client.listObjects(bucketName);
         for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
             if (fileExists(os)) {
-                LOG.info("File already downloaded");
+//                LOG.info("File already downloaded");
             } else {
                 //download the file
                 saveObjectToFile(os, s3client);

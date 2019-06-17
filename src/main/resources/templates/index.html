@@ -10,6 +10,17 @@
 
     <H1>Hello world x</H1>
 
+    <div class="container-fluid">
+        <table class="table">
+            <img th:src="@{/images/000001bw.jpg}"/>
+            <tr th:each="photo : ${photos}">
+                <td>
+                    <img th:src="@{${photo}}"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
     <div th:replace="fragments/footer :: footer">...</div>
 </body>
 
