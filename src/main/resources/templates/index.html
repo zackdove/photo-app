@@ -8,17 +8,13 @@
 <body>
     <div th:replace="fragments/header :: header">&nbsp;</div>
 
-    <H1>Hello world x</H1>
 
-    <div class="container-fluid">
-        <table class="table">
-            <img th:src="@{/images/000001bw.jpg}"/>
-            <tr th:each="photo : ${photos}">
-                <td>
-                    <img th:src="@{${photo}}"/>
-                </td>
-            </tr>
-        </table>
+    <div class="container horizontal-group">
+        <div class="row text-center flex-nowrap">
+            <div class="col-8" th:each="photo : ${photos}">
+                <img class="img-fluid" th:src="@{${photo}}"/>
+            </div>
+        </div>
     </div>
 
     <div th:replace="fragments/footer :: footer">...</div>
