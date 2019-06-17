@@ -11,7 +11,7 @@
     <meta name="author" content=""/>
 
 
-    <title>zckd</title>
+    <title th:text="${title}"></title>
 
     <link
           th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
@@ -26,15 +26,21 @@
         .horizontal-group{
             overflow-x: auto;
         }
+
+        p{
+            font-family: "Courier New";
+        }
+
     </style>
 
 </head>
 <body>
 
-<div class="container-fluid bg-dark text-white" th:fragment="header">
-    <h3 class="p-1">
-        zckd photography
-    </h3>
+<div class="container-fluid bg-white text-dark" th:fragment="header (title)">
+    <p class="p-1">
+        <a href="/" >zckd</a> / <th:block th:text="${title}"> d</th:block>
+    </p>
+
 </div>
 
 </body>
