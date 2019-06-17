@@ -27,14 +27,21 @@ public class AmazonS3Service {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
-    private void saveObjectToFile(S3Object s3object) {
+    private String bucketName = "zack-photo-app-bucket";
+
+    private void saveObjectToFile(S3ObjectSummary os,  AmazonS3 s3client) {
         try {
-            S3ObjectInputStream inputStream = s3object.getObjectContent();
-            String filename = "src/main/resources/static/images/" + s3object.getKey();
+            S3ObjectInputStream inputStream = s3client.getObject(bucketName,os.getKey()).getObjectContent();
+            String filename = "src/main/resources/static/images/" + os.getKey();
             FileUtils.copyInputStreamToFile(inputStream, new File(filename));
+            LOG.info("Downloaded " + filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private Boolean fileExists(S3ObjectSummary os){
+        return (new File("src/main/resources/static/images/" + os.getKey()).isFile());
     }
 
     public void syncPictures(){
@@ -43,16 +50,17 @@ public class AmazonS3Service {
                 .standard()
                 .withRegion(Regions.US_EAST_1)
                 .build();
-        ObjectListing objectListing = s3client.listObjects("zack-photo-app-bucket");
+
+        ObjectListing objectListing = s3client.listObjects(bucketName);
         for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
-            LOG.info(os.getKey());
-
+            if (fileExists(os)) {
+                LOG.info("File already downloaded");
+            } else {
+                //download the file
+                saveObjectToFile(os, s3client);
+            }
         }
-        
 
-        S3Object img1 = s3client.getObject("zack-photo-app-bucket","000001bw.jpg");
-
-        saveObjectToFile(img1);
 
 
     }
