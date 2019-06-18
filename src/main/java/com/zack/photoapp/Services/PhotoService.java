@@ -67,6 +67,7 @@ public class PhotoService {
 				if (new File("src/main/resources/static/images/resized/" + imageName.getName()).isFile()){
 					//Resized file already created
 				} else {
+					LOG.info("Resizing image: " + imageName);
 					BufferedImage image = ImageIO.read(imageName);
 					File imgPath = new File("src/main/resources/static/images/resized/" + imageName.getName());
 					imgPath.getParentFile().mkdirs();
