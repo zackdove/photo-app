@@ -14,3 +14,8 @@
 * add favicon
 * change title of index page to just zckd - done
 * add pagination or infinite scroll
+    * functionality - done
+    * buttons - done
+        * remove button on first and last page
+    
+* fix needed for vertical photos

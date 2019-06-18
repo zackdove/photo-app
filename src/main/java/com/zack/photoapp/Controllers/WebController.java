@@ -33,6 +33,7 @@ public class WebController {
 
     @GetMapping("/photographs/{i}")
     public String getPhotographsI(Model model, @PathVariable Integer i){
+        model.addAttribute("page", i);
         model.addAttribute("photos", photoService.getIthSetOf10(i));
         return "photographs";
     }
