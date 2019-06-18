@@ -1,6 +1,7 @@
 package com.zack.photoapp;
 
 import com.zack.photoapp.Services.AmazonS3Service;
+import com.zack.photoapp.Services.PhotoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,13 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     private AmazonS3Service amazonS3Service;
 
+    @Autowired
+    private PhotoService photoService;
+
     public void run(ApplicationArguments applicationArguments){
-        amazonS3Service.syncPictures();
+//        amazonS3Service.syncPictures();
+        photoService.resizeImages();
     }
+
 
 }
