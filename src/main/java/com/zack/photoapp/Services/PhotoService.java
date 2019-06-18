@@ -68,8 +68,9 @@ public class PhotoService {
 					//Resized file already created
 				} else {
 					BufferedImage image = ImageIO.read(imageName);
-					String newPath = "src/main/resources/static/images/resized/" + imageName.getName();
-					ImageIO.write(Scalr.resize(image, Method.ULTRA_QUALITY, 1600), "JPG", new File(newPath));
+					File imgPath = new File("src/main/resources/static/images/resized/" + imageName.getName());
+					imgPath.getParentFile().mkdirs();
+					ImageIO.write(Scalr.resize(image, Method.ULTRA_QUALITY, 1600), "JPG", imgPath);
 //					LOG.info("Resized image: " + imageName);
 					i++;
 				}
