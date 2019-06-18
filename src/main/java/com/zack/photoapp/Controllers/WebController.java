@@ -26,8 +26,7 @@ public class WebController {
     @GetMapping("/photographs")
     public String getPhotographs(Model model){
         LOG.info("Get request for /photographs");
-        model.addAttribute("photos", photoService.getIthSetOf10(0));
-        return "photographs";
+        return "redirect:/photographs/0";
     }
 
 

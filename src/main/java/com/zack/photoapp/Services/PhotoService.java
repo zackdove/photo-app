@@ -48,7 +48,11 @@ public class PhotoService {
 		List<String> ithSetOf10 = new ArrayList<>();
 		String path = "/images/resized/";
 		for (int j = i*10; j<(i+1)*10; j++){
-			ithSetOf10.add(path + all.get(j).getName());
+			try {
+				ithSetOf10.add(path + all.get(j).getName());
+			} catch (IndexOutOfBoundsException e) {
+//				LOG.info("Index out of bounds");
+			}
 		}
 		return ithSetOf10;
 	}

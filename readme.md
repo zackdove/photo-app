@@ -16,6 +16,6 @@
 * add pagination or infinite scroll
     * functionality - done
     * buttons - done
-        * remove button on first and last page
+        * remove button on first and last page - done
     
 * fix needed for vertical photos
