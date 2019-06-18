@@ -32,7 +32,7 @@ public class AmazonS3Service {
     private void saveObjectToFile(S3ObjectSummary os,  AmazonS3 s3client) {
         try {
             S3ObjectInputStream inputStream = s3client.getObject(bucketName,os.getKey()).getObjectContent();
-            String filename = "src/main/resources/static/images/" + os.getKey();
+            String filename = "src/main/resources/static/images/original/" + os.getKey();
             FileUtils.copyInputStreamToFile(inputStream, new File(filename));
             LOG.info("Downloaded " + filename);
         } catch (IOException e) {
@@ -41,7 +41,7 @@ public class AmazonS3Service {
     }
 
     private Boolean fileExists(S3ObjectSummary os){
-        return (new File("src/main/resources/static/images/" + os.getKey()).isFile());
+        return (new File("src/main/resources/static/images/original/" + os.getKey()).isFile());
     }
 
     public void syncPictures(){
@@ -52,14 +52,17 @@ public class AmazonS3Service {
                 .build();
 
         ObjectListing objectListing = s3client.listObjects(bucketName);
+        int i = 0;
         for(S3ObjectSummary os : objectListing.getObjectSummaries()) {
             if (fileExists(os)) {
 //                LOG.info("File already downloaded");
             } else {
                 //download the file
                 saveObjectToFile(os, s3client);
+                i++;
             }
         }
+        LOG.info("Completed downloading " + i + " images");
 
 
 

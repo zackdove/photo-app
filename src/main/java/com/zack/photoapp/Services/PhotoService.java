@@ -21,16 +21,16 @@ public class PhotoService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
-	public Collection<File> getAllImageNames(){
-		File directory = new File("src/main/resources/static/images/");
+	public Collection<File> getOriginalImageNames(){
+		File directory = new File("src/main/resources/static/images/original/");
 		String[] extensions = new String[] { "jpg" };
 		return FileUtils.listFiles(directory, extensions, false);
 	}
 
 	public Collection<String> getFirst10(){
-		Collection<File> all = getAllImageNames();
+		Collection<File> all = getOriginalImageNames();
 		Collection<String> first10 = new ArrayList<>();
-		String path = "/images/";
+		String path = "/images/resized/";
 		int i = 0;
 		for (File file : all) {
 			String filename = file.getName();
@@ -43,16 +43,24 @@ public class PhotoService {
 
 
 	public void resizeImages(){
-		Collection<File> imagesNames = getAllImageNames();
+		LOG.info("Starting resize image method");
+		Collection<File> imagesNames = getOriginalImageNames();
+		int i = 0;
 		for (File imageName : imagesNames){
 			try {
-				BufferedImage image = ImageIO.read(imageName);
-				String newPath = "src/main/resources/static/images/resized" + imageName.getName();
-				ImageIO.write(Scalr.resize(image, 1024), "JPG", new File(newPath));
-				LOG.info("Resized image: " + imageName);
+				if (new File("src/main/resources/static/images/resized/" + imageName.getName()).isFile()){
+					//Resized file already created
+				} else {
+					BufferedImage image = ImageIO.read(imageName);
+					String newPath = "src/main/resources/static/images/resized/" + imageName.getName();
+					ImageIO.write(Scalr.resize(image, Method.ULTRA_QUALITY, 1600), "JPG", new File(newPath));
+//					LOG.info("Resized image: " + imageName);
+					i++;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		LOG.info("Completed resizing " + i + " images");
 	}
 }
