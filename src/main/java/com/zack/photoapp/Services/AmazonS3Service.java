@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -48,6 +49,7 @@ public class AmazonS3Service {
         return (new File("src/main/resources/static/images/original/" + os.getKey()).isFile());
     }
 
+    @PostConstruct
     public void syncPictures(){
         //Looks in ~/.aws/credentials for credentials
         AmazonS3 s3client = AmazonS3ClientBuilder

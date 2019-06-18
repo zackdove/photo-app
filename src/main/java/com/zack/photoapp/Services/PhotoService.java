@@ -57,7 +57,6 @@ public class PhotoService {
 		return ithSetOf10;
 	}
 
-
 	public void resizeImages(){
 		LOG.info("Starting resize image method");
 		Collection<File> imagesNames = getOriginalImageNames();
