@@ -20,7 +20,7 @@ public class DataLoader implements ApplicationRunner {
     private PhotoService photoService;
 
     public void run(ApplicationArguments applicationArguments){
-//        amazonS3Service.syncPictures();
+        amazonS3Service.syncPictures();
         photoService.resizeImages();
     }
 
