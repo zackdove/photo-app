@@ -70,7 +70,7 @@ public class PhotoService {
 					BufferedImage image = ImageIO.read(imageName);
 					File imgPath = new File("src/main/resources/static/images/resized/" + imageName.getName());
 					imgPath.getParentFile().mkdirs();
-					ImageIO.write(Scalr.resize(image, Method.ULTRA_QUALITY, 1600), "JPG", imgPath);
+					ImageIO.write(Scalr.resize(image, 1600), "JPG", imgPath);
 					LOG.info("Resized image: " + imageName);
 					i++;
 				}
