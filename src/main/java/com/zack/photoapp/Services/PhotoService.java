@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 import org.imgscalr.Scalr.*;
 
 @Service
@@ -21,15 +23,15 @@ public class PhotoService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
-	public Collection<File> getOriginalImageNames(){
+	public List<File> getOriginalImageNames(){
 		File directory = new File("src/main/resources/static/images/original/");
 		String[] extensions = new String[] { "jpg" };
-		return FileUtils.listFiles(directory, extensions, false);
+		return new ArrayList<>(FileUtils.listFiles(directory, extensions, false));
 	}
 
 	public Collection<String> getFirst10(){
-		Collection<File> all = getOriginalImageNames();
-		Collection<String> first10 = new ArrayList<>();
+		List<File> all = getOriginalImageNames();
+		List<String> first10 = new ArrayList<>();
 		String path = "/images/resized/";
 		int i = 0;
 		for (File file : all) {
@@ -39,6 +41,16 @@ public class PhotoService {
 			if (i==10) break;
 		}
 		return first10;
+	}
+
+	public List<String> getIthSetOf10(Integer i){
+		List<File> all = getOriginalImageNames();
+		List<String> ithSetOf10 = new ArrayList<>();
+		String path = "/images/resized/";
+		for (int j = i*10; j<(i+1)*10; j++){
+			ithSetOf10.add(path + all.get(j).getName());
+		}
+		return ithSetOf10;
 	}
 
 

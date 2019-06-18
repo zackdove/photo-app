@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class WebController {
@@ -25,8 +26,14 @@ public class WebController {
     @GetMapping("/photographs")
     public String getPhotographs(Model model){
         LOG.info("Get request for /photographs");
-        model.addAttribute("photos", photoService.getFirst10());
+        model.addAttribute("photos", photoService.getIthSetOf10(0));
         return "photographs";
     }
 
+
+    @GetMapping("/photographs/{i}")
+    public String getPhotographsI(Model model, @PathVariable Integer i){
+        model.addAttribute("photos", photoService.getIthSetOf10(i));
+        return "photographs";
+    }
 }
