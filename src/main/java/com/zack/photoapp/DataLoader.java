@@ -21,7 +21,6 @@ public class DataLoader implements ApplicationRunner {
 
     public void run(ApplicationArguments applicationArguments){
         amazonS3Service.syncPictures();
-        photoService.resizeImages();
     }
 
 

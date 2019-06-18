@@ -15,6 +15,7 @@ import com.zack.photoapp.Controllers.WebController;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -24,6 +25,9 @@ import java.io.IOException;
 
 @Service
 public class AmazonS3Service {
+
+    @Autowired
+    private PhotoService photoService;
 
     private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
@@ -63,7 +67,7 @@ public class AmazonS3Service {
             }
         }
         LOG.info("Completed downloading " + i + " images");
-
+        photoService.resizeImages();
 
 
     }
