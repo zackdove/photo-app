@@ -18,7 +18,7 @@ public class WebController {
     private PhotoService photoService;
 
     @GetMapping("/")
-    public String getIndex(Model model){
+    public String getIndex(){
         LOG.info("Get request for /");
         return "index";
     }
@@ -35,5 +35,11 @@ public class WebController {
         model.addAttribute("page", i);
         model.addAttribute("photos", photoService.getIthSetOf10(i));
         return "photographs";
+    }
+
+    @GetMapping("/about")
+    public String getAbout(){
+        LOG.info("Get request for /about");
+        return "about";
     }
 }
