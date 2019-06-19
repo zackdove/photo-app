@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: head (title='about')">
+</head>
+
+<body>
+<div th:replace="fragments/header :: header (title='about')">&nbsp;</div>
+
+
+
+<div class="container">
+    <div class="card mx-auto mt-5" style="width: 30rem">
+        <div class="card-header">
+            about
+        </div>
+        <div class="card-body">
+            <p class="card-text">Hosted on an AWS t2.micro, running Amazon Linux (cheap but not versatile). Photographs stored in an AWS S3. Built with Spring Boot. Predicted cost = free to £0.04 per month. <a href="https://github.com/zackdove/photo-app">Git repo here.</a></p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer">...</div>
+</body>
+
+</html>
