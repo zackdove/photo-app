@@ -18,4 +18,6 @@
     * buttons - done
         * remove button on first and last page - done
     
-* fix needed for vertical photos
+* fix needed for vertical photos - done
+* new photos aren't loading properly - think it's to do with the path
+    * try putting it in ~/images or something

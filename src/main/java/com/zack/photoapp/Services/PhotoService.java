@@ -24,7 +24,7 @@ public class PhotoService {
 	private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
 	public List<File> getOriginalImageNames(){
-		File directory = new File("src/main/resources/static/images/original/");
+		File directory = new File("~/images/original/");
 		String[] extensions = new String[] { "jpg" };
 		return new ArrayList<>(FileUtils.listFiles(directory, extensions, false));
 	}
@@ -46,7 +46,7 @@ public class PhotoService {
 	public List<String> getIthSetOf10(Integer i){
 		List<File> all = getOriginalImageNames();
 		List<String> ithSetOf10 = new ArrayList<>();
-		String path = "/images/resized/";
+		String path = "~/images/resized/";
 		for (int j = i*10; j<(i+1)*10; j++){
 			try {
 				ithSetOf10.add(path + all.get(j).getName());
@@ -63,12 +63,12 @@ public class PhotoService {
 		int i = 0;
 		for (File imageName : imagesNames){
 			try {
-				if (new File("src/main/resources/static/images/resized/" + imageName.getName()).isFile()){
+				if (new File("~/images/resized/" + imageName.getName()).isFile()){
 					//Resized file already created
 				} else {
 					LOG.info("Resizing image: " + imageName);
 					BufferedImage image = ImageIO.read(imageName);
-					File imgPath = new File("src/main/resources/static/images/resized/" + imageName.getName());
+					File imgPath = new File("~/images/resized/" + imageName.getName());
 					imgPath.getParentFile().mkdirs();
 					ImageIO.write(Scalr.resize(image, 1600), "JPG", imgPath);
 					LOG.info("Resized image: " + imageName);

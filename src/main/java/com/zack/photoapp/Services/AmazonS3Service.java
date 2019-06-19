@@ -37,7 +37,7 @@ public class AmazonS3Service {
     private void saveObjectToFile(S3ObjectSummary os,  AmazonS3 s3client) {
         try {
             S3ObjectInputStream inputStream = s3client.getObject(bucketName,os.getKey()).getObjectContent();
-            String filename = "src/main/resources/static/images/original/" + os.getKey();
+            String filename = "~/images/original/" + os.getKey();
             FileUtils.copyInputStreamToFile(inputStream, new File(filename));
             LOG.info("Downloaded " + filename);
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class AmazonS3Service {
     }
 
     private Boolean fileExists(S3ObjectSummary os){
-        return (new File("src/main/resources/static/images/original/" + os.getKey()).isFile());
+        return (new File("~/images/original/" + os.getKey()).isFile());
     }
 
     @PostConstruct
