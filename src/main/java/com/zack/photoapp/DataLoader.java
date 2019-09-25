@@ -1,6 +1,5 @@
 package com.zack.photoapp;
 
-import com.zack.photoapp.Services.AmazonS3Service;
 import com.zack.photoapp.Services.PhotoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Component;
 public class DataLoader implements ApplicationRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(DataLoader.class);
-    @Autowired
-    private AmazonS3Service amazonS3Service;
 
     @Autowired
     private PhotoService photoService;
