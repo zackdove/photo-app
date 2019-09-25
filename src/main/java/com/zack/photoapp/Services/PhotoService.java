@@ -18,38 +18,25 @@ import java.util.List;
 
 import org.imgscalr.Scalr.*;
 
+import static com.zack.photoapp.Constants.photoDir;
+
 @Service
 public class PhotoService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(WebController.class);
 
 	public List<File> getOriginalImageNames(){
-		File directory = new File("/var/images/original/");
+		File directory = new File(photoDir);
 		String[] extensions = new String[] { "jpg" };
 		return new ArrayList<>(FileUtils.listFiles(directory, extensions, false));
-	}
-
-	public Collection<String> getFirst10(){
-		List<File> all = getOriginalImageNames();
-		List<String> first10 = new ArrayList<>();
-		String path = "/images/resized/";
-		int i = 0;
-		for (File file : all) {
-			String filename = file.getName();
-			first10.add( path + filename );
-			i++;
-			if (i==10) break;
-		}
-		return first10;
 	}
 
 	public List<String> getIthSetOf10(Integer i){
 		List<File> all = getOriginalImageNames();
 		List<String> ithSetOf10 = new ArrayList<>();
-		String path = "/var/images/resized/";
 		for (int j = i*10; j<(i+1)*10; j++){
 			try {
-				ithSetOf10.add(path + all.get(j).getName());
+				ithSetOf10.add(photoDir + all.get(j).getName());
 			} catch (IndexOutOfBoundsException e) {
 //				LOG.info("Index out of bounds");
 			}
@@ -57,27 +44,4 @@ public class PhotoService {
 		return ithSetOf10;
 	}
 
-	public void resizeImages(){
-		LOG.info("Starting resize image method");
-		Collection<File> imagesNames = getOriginalImageNames();
-		int i = 0;
-		for (File imageName : imagesNames){
-			try {
-				if (new File("/var/images/resized/" + imageName.getName()).isFile()){
-					//Resized file already created
-				} else {
-					LOG.info("Resizing image "  + imageName);
-					BufferedImage image = ImageIO.read(imageName);
-					File imgPath = new File("/var/images/resized/" + imageName.getName());
-					imgPath.getParentFile().mkdirs();
-					ImageIO.write(Scalr.resize(image, 1600), "JPG", imgPath);
-					LOG.info("Resized image: " + imageName);
-					i++;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		LOG.info("Completed resizing " + i + " images");
-	}
 }
