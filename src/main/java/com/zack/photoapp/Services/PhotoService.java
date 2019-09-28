@@ -44,6 +44,11 @@ public class PhotoService {
 		return ithSetOf10;
 	}
 
+	public Boolean isLastPage(Integer i){
+		List<File> all = getImageNamesInDir("resized");
+		return (all.size() - (i+1)*10) <= 0 ;
+	}
+
 	public void resizeImages(){
 		LOG.info("Starting resize image method");
 		Collection<File> imagesNames = getImageNamesInDir("original");

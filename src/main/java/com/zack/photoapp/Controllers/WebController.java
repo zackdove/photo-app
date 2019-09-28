@@ -34,6 +34,7 @@ public class WebController {
     public String getPhotographsI(Model model, @PathVariable Integer i){
         model.addAttribute("page", i);
         model.addAttribute("photos", photoService.getIthSetOf10(i));
+        model.addAttribute("isLastPage", photoService.isLastPage(i));
         return "photographs";
     }
 

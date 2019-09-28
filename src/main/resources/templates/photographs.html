@@ -18,7 +18,7 @@
             <div class="col-10" th:each="photo : ${photos}" data-aos="fade-down" >
                 <img class="img-fluid" style="width: 100%; height: 43vw; object-fit: contain" th:src="@{${photo}}"/>
             </div>
-            <div th:unless="${photos.size()}<10" class="col-1 justify-content-center d-flex align-items-center">
+            <div th:unless="${isLastPage}" class="col-1 justify-content-center d-flex align-items-center">
                 <a class="btn btn-light" th:href="@{/photographs/{i}(i=${page}+1)}">→</a>
             </div>
         </div>
