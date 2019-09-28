@@ -38,7 +38,7 @@ public class PhotoService {
 			try {
 				ithSetOf10.add(photoDir + all.get(j).getName());
 			} catch (IndexOutOfBoundsException e) {
-//				LOG.info("Index out of bounds");
+				LOG.info("Index out of bounds");
 			}
 		}
 		return ithSetOf10;
